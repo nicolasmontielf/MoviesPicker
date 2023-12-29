@@ -14,3 +14,10 @@ export async function getGenres() {
     const instance = getInstance()
     return await instance.get('/genre/movie/list')
 }
+
+export async function getMovies(filters: any) {
+    const instance = getInstance()
+    return await instance.get('/discover/movie', {
+        params: filters
+    })
+}
