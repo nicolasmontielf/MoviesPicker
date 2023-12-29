@@ -4,12 +4,14 @@ import { Server } from "socket.io";
 import dotenv from 'dotenv'
 import SocketEventsHandler from '@/socket';
 import router from '@/router';
+import cors from 'cors'
 
 dotenv.config()
 
 const app = express()
 
 app.use(express.json())
+app.use(cors())
 app.use('/api', router)
 
 const httpServer = createServer(app);
