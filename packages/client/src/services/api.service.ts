@@ -1,6 +1,6 @@
 import axios from 'axios';
 import type { AxiosInstance } from 'axios';
-import type { GenreApiResponse } from '@movies/common/types/api';
+import type { GenreApiResponse, Genre } from '@movies/common/types';
 
 function getInstance(): AxiosInstance {
     return axios.create({
@@ -12,8 +12,8 @@ function getInstance(): AxiosInstance {
     });
 }
 
-export async function getGenres(): Promise<GenreApiResponse> {
+export async function getGenres(): Promise<Genre[]> {
     const instance = getInstance();
-    const { data } = await instance.get('/genres');
+    const { data } = await instance.get<GenreApiResponse>('/genres');
     return data.data;
 }

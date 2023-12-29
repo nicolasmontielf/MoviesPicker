@@ -29,9 +29,10 @@
 <script setup lang="ts">
     import { ref } from 'vue'
     import { getGenres } from '@/services/api.service'
+    import type { Genre } from '@movies/common/types';
 
     const checked = ref<number[]>([])
-    const genres = ref<string[]>([])
+    const genres = ref<Genre[]>([])
 
     async function fetchGenres(): Promise<void> {
         genres.value = await getGenres()
