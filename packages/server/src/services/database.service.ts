@@ -14,19 +14,19 @@ function getInstance(): AWS.DynamoDB.DocumentClient {
     return new AWS.DynamoDB.DocumentClient()
 }
 
-export async function createRoom(data: any) {
+export async function createRoom(genres: string) {
     const instance = getInstance()
 
-    const params = {
-        TableName: ROOMS_TABLE,
-        Item: {
-            id: crypto.randomUUID(),
-            expiration: Date.now() + 1000 * 60 * 60 * 24,
-            ...data
-        },
-        returnValues: 'UPDATED_NEW'
+    const item = {
+        id: crypto.randomUUID(),
+        expiration: Date.now() + 1000 * 60 * 60 * 24,
+        genres: genres
     }
     
-    const returned = await instance.put(params).promise()
-    return returned.Attributes
+    await instance.put({
+        TableName: ROOMS_TABLE,
+        Item: item,
+    }).promise()
+
+    return item;
 }

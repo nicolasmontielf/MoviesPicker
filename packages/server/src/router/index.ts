@@ -16,7 +16,8 @@ router.get('/genres', async (req, res) => {
 })
 
 router.post('/rooms/create', async (req, res) => {
-    const room = await createRoom(req.body)
+    const room = await createRoom(req.body.genres)
+
     return res.send({
         data: room
     })
