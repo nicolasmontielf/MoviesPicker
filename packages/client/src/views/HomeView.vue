@@ -4,6 +4,6 @@
 
 <template>
     <main>
-        <h3>Home Page</h3>
+        <h3 class="text-3xl">Home Page</h3>
     </main>
 </template>
