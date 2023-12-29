@@ -4,7 +4,7 @@
             Genres
         </h2>
         <div
-            class="flex items-center mb-4"
+            class="flex items-center mb-1"
             v-for="genre in genres"
             :key="genre.id"
         >
