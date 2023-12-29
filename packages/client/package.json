@@ -17,6 +17,7 @@
         "@capacitor/status-bar": "5.0.6",
         "@ionic/vue": "^7.0.0",
         "@ionic/vue-router": "^7.0.0",
+        "@movies/common": "file:../common",
         "ionicons": "^7.0.0",
         "vue": "^3.3.0",
         "vue-router": "^4.2.0"

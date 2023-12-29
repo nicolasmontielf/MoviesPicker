@@ -10,6 +10,7 @@
     "author": "Nicolas Montiel <nicolasmontielf@gmail.com>",
     "license": "ISC",
     "dependencies": {
+        "@movies/common": "file:../common",
         "aws-sdk": "^2.1525.0",
         "axios": "^1.6.3",
         "dotenv": "^16.3.1",
