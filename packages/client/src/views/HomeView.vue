@@ -1,9 +1,9 @@
 <script setup lang="ts">
-
+    import GenresContainer from '@/components/Home/GenresContainer.vue' 
 </script>
 
 <template>
     <main>
-        <h3 class="text-3xl">Home Page</h3>
+        <GenresContainer />
     </main>
 </template>
