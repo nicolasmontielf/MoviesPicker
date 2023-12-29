@@ -3,10 +3,15 @@ import { createServer } from "http";
 import { Server } from "socket.io";
 import dotenv from 'dotenv'
 import SocketEventsHandler from '@/socket';
+import router from '@/router';
 
 dotenv.config()
 
 const app = express()
+
+app.use(express.json())
+app.use('/api', router)
+
 const httpServer = createServer(app);
 const io = new Server(httpServer, {
     cors: {
@@ -28,8 +33,4 @@ io.on("connection", (socket) => {
     SocketEventsHandler(socket)
 });
 
-httpServer.listen(3000);
-
-app.get('/', (req, res) => {
-    return res.send('Hello World!')
-})
+httpServer.listen(process.env.PORT || 3000);

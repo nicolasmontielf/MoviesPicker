@@ -1,4 +1,8 @@
 import AWS from 'aws-sdk';
+import crypto from 'crypto'
+
+const ROOMS_TABLE = 'rooms'
+const VOTES_TABLE = 'votes'
 
 function getInstance(): AWS.DynamoDB.DocumentClient {
     AWS.config.update({
@@ -8,4 +12,21 @@ function getInstance(): AWS.DynamoDB.DocumentClient {
     });
 
     return new AWS.DynamoDB.DocumentClient()
+}
+
+export async function createRoom(data: any) {
+    const instance = getInstance()
+
+    const params = {
+        TableName: ROOMS_TABLE,
+        Item: {
+            id: crypto.randomUUID(),
+            expiration: Date.now() + 1000 * 60 * 60 * 24,
+            ...data
+        },
+        returnValues: 'UPDATED_NEW'
+    }
+    
+    const returned = await instance.put(params).promise()
+    return returned.Attributes
 }
