@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
-import { GenreResponse, GenreItemResponse } from '@movies/common/types/tmdb'
+import { GenreResponse, GenreItemResponse, GetMoviesFilters } from '@movies/common/types'
 
 function getInstance(): AxiosInstance {
     return axios.create({
@@ -18,7 +18,7 @@ export async function getGenres(): Promise<GenreItemResponse[]> {
     return data.genres;
 }
 
-export async function getMovies(filters: any) {
+export async function getMovies(filters?: GetMoviesFilters) {
     const instance = getInstance()
     return await instance.get('/discover/movie', {
         params: filters
