@@ -2,7 +2,6 @@
     <div>
         <h2 class="mb-4 text-2xl font-semibold text-gray-900">
             Genres
-            {{ checked }}
         </h2>
         <div
             class="flex items-center mb-4"
@@ -27,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-    import { ref } from 'vue'
+    import { ref, watch } from 'vue'
     import { getGenres } from '@/services/api.service'
     import type { Genre } from '@movies/common/types';
 
@@ -38,5 +37,13 @@
         genres.value = await getGenres()
     }
     fetchGenres()
+
+    const emit = defineEmits<{
+        (e: 'genreUpdated', value: number[]): void
+    }>()
+
+    watch(checked, (value) => {
+        emit('genreUpdated', value)
+    })
 
 </script>
