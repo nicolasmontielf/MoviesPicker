@@ -3,6 +3,7 @@
     import { onMounted, ref, reactive } from 'vue'
     import type { Room } from '@movies/common/types';
     import socketClass from '@/services/socket.service'
+    import MoviesList from '@/components/Room/MoviesList.vue'
 
     // Props from the router
     const props = defineProps<{
@@ -17,9 +18,12 @@
 
     // Socket data
     const socket = reactive(new socketClass(props.id))
+    function getMovies() {
+        socket.getMovies(room.value?.genres as string);
+    }
     function startSocketAndGetMovies() {
         socket.start()
-        socket.getMovies(room.value?.genres as string);
+        getMovies()
     }
     
     onMounted(async () => {
@@ -33,11 +37,10 @@
         <h1>This is the room view: {{ id }}</h1>
 
         <div>
-            <p>{{ room }}</p>
-
-            <div>
-                {{JSON.stringify(socket.movies)}}
-            </div>
+            <MoviesList
+                :movies="socket.movies"
+                @get-more-movies="getMovies"
+            />
         </div>
     </div>
 </template>

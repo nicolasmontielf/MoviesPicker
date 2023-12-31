@@ -16,9 +16,9 @@ export default class {
         this.socket = io(import.meta.env.VITE_SOCKET_URL + `?room=${this.roomId}`);
 
         // We receive the movies from the server
-        this.socket.on("movies", (movies, page) => {
-            this.movies = movies;
-            this.page = page;
+        this.socket.on("movies", (movies) => {
+            this.movies = [...this.movies, ...movies];
+            this.page++;
         });
     }
 
@@ -29,7 +29,7 @@ export default class {
     /** Emit the "get-movies" event to the server. This will return us the "movies" event */
     public getMovies(genres: string): void {
         this.getSocket()
-            .emit("get-movies", { roomId: this.roomId, genres });
+            .emit("get-movies", { roomId: this.roomId, genres, page: this.page });
     }
 
     /** Emit the "vote" event to the server. This happens where the user votes */

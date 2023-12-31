@@ -15,6 +15,6 @@ export default function (socket: Socket, io: Server) {
 
         // Emit to all sockets in the room
         io.to(args.roomId)
-            .emit("movies", movies.results, movies.page);
+            .emit("movies", movies.results);
     })
 }
