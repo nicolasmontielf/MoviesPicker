@@ -1,6 +1,6 @@
 import axios from 'axios'
 import type { AxiosInstance } from 'axios'
-import { GenreResponse, GenreItemResponse, GetMoviesFilters } from '@movies/common/types'
+import { GenreResponse, GenreItemResponse, GetMoviesFilters, MovieResponse } from '@movies/common/types'
 
 function getInstance(): AxiosInstance {
     return axios.create({
@@ -18,9 +18,11 @@ export async function getGenres(): Promise<GenreItemResponse[]> {
     return data.genres;
 }
 
-export async function getMovies(filters?: GetMoviesFilters) {
+export async function getMovies(filters?: GetMoviesFilters): Promise<MovieResponse> {
     const instance = getInstance()
-    return await instance.get('/discover/movie', {
+    const { data } = await instance.get<MovieResponse>('/discover/movie', {
         params: filters
     })
+
+    return data;
 }

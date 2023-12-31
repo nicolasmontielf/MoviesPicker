@@ -1,6 +1,6 @@
 <script setup lang="ts">
     import { getRoom } from '@/services/api.service'
-    import { onMounted, ref } from 'vue'
+    import { onMounted, ref, reactive } from 'vue'
     import type { Room } from '@movies/common/types';
     import socketClass from '@/services/socket.service'
 
@@ -16,17 +16,16 @@
     }
 
     // Socket data
-    const socket = ref()
+    const socket = reactive(new socketClass(props.id))
     function startSocketAndGetMovies() {
-        socket.value = new socketClass(props.id)
-        socket.value.getMovies(room.value?.genres as string);
+        socket.start()
+        socket.getMovies(room.value?.genres as string);
     }
-
+    
     onMounted(async () => {
         await fetchRoom()
         startSocketAndGetMovies()
     })
-
 </script>
 
 <template>
@@ -35,6 +34,10 @@
 
         <div>
             <p>{{ room }}</p>
+
+            <div>
+                {{JSON.stringify(socket.movies)}}
+            </div>
         </div>
     </div>
 </template>

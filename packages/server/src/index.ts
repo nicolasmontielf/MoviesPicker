@@ -32,7 +32,7 @@ io.on("connection", (socket) => {
     socket.join(query.room);
 
     // Handle socket events
-    SocketEventsHandler(socket)
+    SocketEventsHandler(socket, io)
 });
 
 httpServer.listen(process.env.PORT || 3000);
