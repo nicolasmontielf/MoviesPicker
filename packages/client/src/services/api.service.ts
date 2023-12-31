@@ -27,3 +27,11 @@ export async function createRoom(genres: string): Promise<Room> {
 
     return data.data;
 }
+
+export async function getRoom(id: string): Promise<Room | undefined> {
+    const instance = getInstance();
+
+    const { data } = await instance.get<{ data: Room }>('/rooms/' + id);
+
+    return data.data;
+}

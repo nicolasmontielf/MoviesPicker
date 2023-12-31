@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
     // Handle socket connection
     const query = socket.handshake.query;
     if (!query?.room) {
-        console.log("disconnected");
+        console.log("Socket disconnected due to invalid room");
         return socket.disconnect();
     }
     socket.join(query.room);

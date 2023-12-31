@@ -5,7 +5,7 @@ export default function (socket: Socket) {
     .on('voted', async (args) => {
         console.log("voted event", args);
     })
-    .on("getMoreMovies", async (args) => {
-        console.log("getMoreMovies event", args);
+    .on("get-movies", async (args) => {
+        console.log("get-movies event", args);
     })
 }
