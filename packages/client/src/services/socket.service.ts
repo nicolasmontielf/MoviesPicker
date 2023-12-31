@@ -1,14 +1,13 @@
 import { io } from "socket.io-client";
 import type { Socket } from "socket.io-client";
-import type { MoviesEvent } from '@movies/common/types';
 
 export default class {
-    private socket: Socket;
+    private socket?: Socket = undefined;
     private roomId: string;
     public movies: any[] = [];
     public page: number = 1;
 
-    constructor(roomId: string): void {
+    constructor(roomId: string) {
         this.roomId = roomId;
     }
 
@@ -17,14 +16,14 @@ export default class {
         this.socket = io(import.meta.env.VITE_SOCKET_URL + `?room=${this.roomId}`);
 
         // We receive the movies from the server
-        this.socket.on<MoviesEvent>("movies", (movies, page) => {
+        this.socket.on("movies", (movies, page) => {
             this.movies = movies;
             this.page = page;
         });
     }
 
     private getSocket(): Socket {
-        return this.socket;
+        return this.socket as Socket;
     }
     
     /** Emit the "get-movies" event to the server. This will return us the "movies" event */
